@@ -66,3 +66,7 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #555;
 }
+
+#about-output {
+  white-space: pre-line;
+}
