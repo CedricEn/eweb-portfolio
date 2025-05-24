@@ -34,7 +34,7 @@ form {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     box-sizing: border-box;
 }
 

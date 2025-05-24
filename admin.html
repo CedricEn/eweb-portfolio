@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="js/admin.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Admin-Bereich</h1>
+    <button onclick="window.location.href='index.html'" style="margin-left: 20px; padding: 6px 12px; cursor: pointer;">
+      Zurück zur Startseite
+    </button>
+  </header>
+
+  <section id="login-section">
+    <h2>Login</h2>
+    <form id="login-form">
+      <label for="email">E-Mail:</label><br />
+      <input type="email" id="email" required /><br /><br />
+
+      <label for="password">Passwort:</label><br />
+      <input type="password" id="password" required /><br /><br />
+
+      <button type="submit">Einloggen</button>
+      <p id="login-message" style="color: red;"></p>
+    </form>
+  </section>
+
+  <section id="admin-section" style="display: none;">
+    <h2>Willkommen im Admin-Bereich</h2>
+    <p>Nur sichtbar nach erfolgreichem Login.</p>
+    <button id="logout-button">Logout</button>
+  </section>
+</body>
+</html>
