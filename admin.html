@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Login</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
   <script type="module" src="js/admin.js" defer></script>
 </head>
 <body>
@@ -31,12 +31,19 @@
 
   <section id="admin-section" style="display: none;">
     <h2>Willkommen im Admin-Bereich</h2>
+
     <h3>„Über mich“-Text bearbeiten</h3>
     <textarea id="aboutText" rows="5" cols="40"></textarea><br>
     <button id="saveAboutBtn">Speichern</button>
     <p id="save-status" style="color: green;"></p>
 
-    <p>Nur sichtbar nach erfolgreichem Login.</p>
+    <hr />
+
+    <h3>Kontaktanfragen</h3>
+    <div id="messages-container">
+      <p>Lade Kontaktanfragen...</p>
+    </div>
+
     <button id="logout-button">Logout</button>
   </section>
 </body>

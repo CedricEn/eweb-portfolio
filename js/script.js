@@ -1,32 +1,16 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   const formular = document.getElementById("kontaktformular");
   const meldung = document.getElementById("formular-meldung");
-
-  formular?.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const nachricht = document.getElementById("nachricht").value.trim();
-
-    if (name === "" || email === "" || nachricht === "") {
-      meldung.textContent = "Bitte fülle alle Pflichtfelder aus.";
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      meldung.textContent = "Bitte gib eine gültige E-Mail-Adresse ein.";
-      return;
-    }
-
-    meldung.style.color = "green";
-    meldung.textContent = "Vielen Dank für deine Nachricht!";
-    formular.reset();
-  });
 
   const firebaseConfig = {
     apiKey: "AIzaSyAQrOILKOCE0Ye5NQ60ADF1H36m26nEdQ4",
@@ -40,7 +24,46 @@ document.addEventListener("DOMContentLoaded", async function () {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  
+  formular?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const nachricht = document.getElementById("nachricht").value.trim();
+
+    if (name === "" || email === "" || nachricht === "") {
+      meldung.style.color = "red";
+      meldung.textContent = "Bitte fülle alle Pflichtfelder aus.";
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      meldung.style.color = "red";
+      meldung.textContent = "Bitte gib eine gültige E-Mail-Adresse ein.";
+      return;
+    }
+
+    try {
+      // Nachricht in Firestore speichern
+      await addDoc(collection(db, "messages"), {
+        name,
+        email,
+        nachricht,
+        timestamp: serverTimestamp(),
+      });
+
+      meldung.style.color = "green";
+      meldung.textContent = "Vielen Dank für deine Nachricht!";
+      formular.reset();
+    } catch (error) {
+      console.error("Fehler beim Speichern der Nachricht:", error);
+      meldung.style.color = "red";
+      meldung.textContent = "Fehler beim Senden der Nachricht.";
+    }
+  });
+
+  // "Über mich"-Inhalt laden
   const aboutOutput = document.getElementById("about-output");
   try {
     const docSnap = await getDoc(doc(db, "content", "about"));
@@ -53,4 +76,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("Fehler beim Laden des 'Über Mich'-Textes:", error);
     aboutOutput.textContent = "Fehler beim Laden.";
   }
+
+  // Burger-Menü
+  const burger = document.getElementById("menu-toggle");
+  const nav = document.getElementById("main-nav");
+
+  burger?.addEventListener("click", () => {
+    nav.classList.toggle("active");
+    burger.classList.toggle("open");
+  });
 });

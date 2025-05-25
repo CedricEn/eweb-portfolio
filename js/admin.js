@@ -10,6 +10,10 @@ import {
   doc,
   setDoc,
   getDoc,
+  collection,
+  getDocs,
+  query,
+  orderBy,
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -33,6 +37,7 @@ const logoutButton = document.getElementById("logout-button");
 const aboutText = document.getElementById("aboutText");
 const saveAboutBtn = document.getElementById("saveAboutBtn");
 const saveStatus = document.getElementById("save-status");
+const messagesContainer = document.getElementById("messages-container");
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -44,7 +49,7 @@ loginForm.addEventListener("submit", (e) => {
       loginMessage.textContent = "";
     })
     .catch((error) => {
-      console.error(error); // wichtig zur Fehlersuche
+      console.error(error);
       loginMessage.textContent = "Login fehlgeschlagen: " + error.message;
     });
 });
@@ -61,6 +66,41 @@ onAuthStateChanged(auth, async (user) => {
       }
     } catch (error) {
       console.error("Fehler beim Laden des About-Texts:", error);
+    }
+
+    // Kontaktanfragen laden
+    try {
+      messagesContainer.innerHTML = "<p>Lade Kontaktanfragen...</p>";
+      const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        messagesContainer.innerHTML = "<p>Keine Kontaktanfragen gefunden.</p>";
+        return;
+      }
+
+      messagesContainer.innerHTML = "";
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const messageEl = document.createElement("div");
+        messageEl.style.border = "1px solid #ccc";
+        messageEl.style.padding = "10px";
+        messageEl.style.marginBottom = "10px";
+        messageEl.style.borderRadius = "5px";
+        messageEl.style.backgroundColor = "#fff";
+
+        const dateStr = data.timestamp?.toDate().toLocaleString() || "kein Datum";
+
+        messageEl.innerHTML = `
+          <strong>${data.name}</strong> – <em>${data.email}</em><br />
+          <small>${dateStr}</small>
+          <p>${data.nachricht}</p>
+        `;
+        messagesContainer.appendChild(messageEl);
+      });
+    } catch (error) {
+      console.error("Fehler beim Laden der Kontaktanfragen:", error);
+      messagesContainer.innerHTML = "<p style='color:red'>Fehler beim Laden der Kontaktanfragen.</p>";
     }
   } else {
     loginSection.style.display = "block";
