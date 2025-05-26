@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     try {
-      // Nachricht in Firestore speichern
       await addDoc(collection(db, "messages"), {
         name,
         email,
@@ -63,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  // "Über mich"-Inhalt laden
+  
   const aboutOutput = document.getElementById("about-output");
   try {
     const docSnap = await getDoc(doc(db, "content", "about"));
@@ -77,12 +76,27 @@ document.addEventListener("DOMContentLoaded", async function () {
     aboutOutput.textContent = "Fehler beim Laden.";
   }
 
-  // Burger-Menü
+  
   const burger = document.getElementById("menu-toggle");
   const nav = document.getElementById("main-nav");
+  const navLinks = document.querySelectorAll('#main-nav a');
 
   burger?.addEventListener("click", () => {
-    nav.classList.toggle("active");
-    burger.classList.toggle("open");
+    const isOpen = nav.classList.contains("active");
+    if (isOpen) {
+      nav.classList.remove("active");
+      burger.classList.remove("open");
+    } else {
+      nav.classList.add("active");
+      burger.classList.add("open");
+    }
+  });
+
+  
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("active");
+      burger.classList.remove("open");
+    });
   });
 });

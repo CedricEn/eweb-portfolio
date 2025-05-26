@@ -3,48 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Login</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="js/admin.js" defer></script>
 </head>
 <body>
   <header>
     <h1>Admin-Bereich</h1>
-    <button onclick="window.location.href='index.html'" style="margin-left: 20px; padding: 6px 12px; cursor: pointer;">
-      Zurück zur Startseite
-    </button>
+    <button onclick="window.location.href='index.html'">Zurück zur Startseite</button>
   </header>
 
   <section id="login-section">
     <h2>Login</h2>
     <form id="login-form">
-      <label for="email">E-Mail:</label><br />
-      <input type="email" id="email" required /><br /><br />
+      <label for="email">E-Mail:</label>
+      <input type="email" id="email" required />
 
-      <label for="password">Passwort:</label><br />
-      <input type="password" id="password" required /><br /><br />
+      <label for="password">Passwort:</label>
+      <input type="password" id="password" required />
 
       <button type="submit">Einloggen</button>
-      <p id="login-message" style="color: red;"></p>
+      <p id="login-message" class="error"></p>
     </form>
   </section>
 
   <section id="admin-section" style="display: none;">
-    <h2>Willkommen im Admin-Bereich</h2>
+    <div class="dashboard-container">
 
-    <h3>„Über mich“-Text bearbeiten</h3>
-    <textarea id="aboutText" rows="5" cols="40"></textarea><br>
-    <button id="saveAboutBtn">Speichern</button>
-    <p id="save-status" style="color: green;"></p>
+      <div class="about-me">
+        <h2>„Über mich“-Text bearbeiten</h2>
+        <textarea id="aboutText" rows="10"></textarea>
+        <button id="saveAboutBtn">Speichern</button>
+        <p id="save-status" class="status"></p>
+      </div>
 
-    <hr />
+      <div class="messages-and-stats">
 
-    <h3>Kontaktanfragen</h3>
-    <div id="messages-container">
-      <p>Lade Kontaktanfragen...</p>
+        <div class="messages-box">
+          <h2>Kontaktanfragen</h2>
+          <div id="messages-container">
+            <p>Lade Kontaktanfragen...</p>
+          </div>
+        </div>
+
+        <div class="stats-box">
+          <h2>Statistik: Kontaktanfragen über Zeit</h2>
+          <canvas id="messagesChart" width="600" height="300"></canvas>
+        </div>
+
+        <button id="logout-button" style="margin-top: 20px; background-color:#e74c3c; color: white; border:none; padding: 10px 16px; border-radius: 6px; cursor: pointer;">
+          Logout
+        </button>
+
+      </div>
+
     </div>
-
-    <button id="logout-button">Logout</button>
   </section>
 </body>
 </html>
