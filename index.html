@@ -24,41 +24,59 @@
                 <li><a href="#projekte">Realisierte Projekte</a></li>
                 <li><a href="#technologien">Erfahrungen in Technologien</a></li>
                 <li><a href="#kontakt">Kontakt</a></li>
-                <li><a href="admin.html">Anmelden</a></li>
+                <li><a href="admin.html">Login</a></li>
             </ul>
         </nav>
     </header>
 
     <section id="ueber-mich">
-        <h3>Über Mich</h3>
-        <div id="about-output">Lade Text ...</div>
+        <div class="about-content">
+            <div class="text-block">
+                <h3>Über Mich</h3>
+                <div id="about-output">Lade Text ...</div>
+            </div>
+            <img src="images/uebermich.svg" alt="Piktogramm" class="icon">
+        </div>
     </section>
+
     
     <section id="projekte">
-        <h3>Realisierte Projekte</h3>
-        <p>Verlinkungen und Bilder.</p>
+        <div class="about-content">
+            <div class="text-block">
+                <h3>Realisierte Projekte</h3>
+                <p>Verlinkungen und Bilder.</p>
+            </div>
+            <img src="images/projekte.svg" alt="Projekte Piktogramm" class="icon">
+        </div>
     </section>
+
     
     <section id="technologien">
-        <h3>Erfahrungen in Technologien</h3>
-        <ul>
-            <li>HTML, CSS, JavaScript</li>
-            <li>React, Strapi</li>
-            <li>usw.</li>
-        </ul>
+        <div class="about-content">
+            <div class="text-block">
+                <h3>Erfahrungen in Technologien</h3>
+                <ul>
+                    <li>HTML, CSS, JavaScript</li>
+                    <li>React, Strapi</li>
+                    <li>usw.</li>
+                </ul>
+            </div>
+            <img src="images/technologie.svg" alt="Technologie Piktogramm" class="icon">
+        </div>
     </section>
+
 
     <section id="kontakt">
         <h3>Kontaktformular</h3>
         <form id="kontaktformular">
-            <label for="name">Name *</label><br>
-            <input type="text" id="name" name="name" required><br><br>
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required><br>
 
-            <label for="email">E-Mail *</label><br>
-            <input type="email" id="email" name="email" required><br><br>
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" required><br>
 
-            <label for="nachricht">Nachricht *</label><br>
-            <textarea id="nachricht" name="nachricht" rows="5" required></textarea><br><br>
+            <label for="nachricht">Nachricht *</label>
+            <textarea id="nachricht" name="nachricht" rows="5" required></textarea><br>
 
             <button type="submit">Absenden</button>
             <p id="formular-meldung"></p>
