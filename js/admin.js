@@ -34,13 +34,27 @@ const loginMessage = document.getElementById("login-message");
 const loginSection = document.getElementById("login-section");
 const adminSection = document.getElementById("admin-section");
 const logoutButton = document.getElementById("logout-button");
-const aboutText = document.getElementById("aboutText");
 const saveAboutBtn = document.getElementById("saveAboutBtn");
 const saveStatus = document.getElementById("save-status");
 const messagesContainer = document.getElementById("messages-container");
 const messagesChartCtx = document.getElementById("messagesChart").getContext("2d");
 
 let messagesChart;
+
+
+const aboutEditor = new Quill("#aboutEditor", {
+  theme: "snow",
+  placeholder: "Schreibe hier deinen ‚Über mich‘-Text...",
+  modules: {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike"],
+      ["link", "blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["clean"],
+    ],
+  },
+});
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -60,13 +74,17 @@ onAuthStateChanged(auth, async (user) => {
     loginSection.style.display = "none";
     adminSection.style.display = "block";
 
-    
     try {
       const docSnap = await getDoc(doc(db, "content", "about"));
-      aboutText.value = docSnap.exists() ? docSnap.data().text : "";
+      if (docSnap.exists()) {
+        
+        aboutEditor.root.innerHTML = docSnap.data().text || "";
+      } else {
+        aboutEditor.root.innerHTML = "";
+      }
     } catch (error) {
       console.error("Fehler beim Laden des About-Texts:", error);
-      aboutText.value = "";
+      aboutEditor.root.innerHTML = "";
     }
 
     await loadMessagesAndStats();
@@ -74,7 +92,7 @@ onAuthStateChanged(auth, async (user) => {
     loginSection.style.display = "block";
     adminSection.style.display = "none";
     loginMessage.textContent = "";
-    aboutText.value = "";
+    aboutEditor.root.innerHTML = "";
     messagesContainer.innerHTML = "";
     if (messagesChart) {
       messagesChart.destroy();
@@ -88,9 +106,11 @@ logoutButton.addEventListener("click", () => {
 });
 
 saveAboutBtn.addEventListener("click", async () => {
-  const text = aboutText.value.trim();
+  
+  const htmlContent = aboutEditor.root.innerHTML.trim();
+
   try {
-    await setDoc(doc(db, "content", "about"), { text });
+    await setDoc(doc(db, "content", "about"), { text: htmlContent });
     saveStatus.textContent = "Gespeichert!";
     setTimeout(() => (saveStatus.textContent = ""), 3000);
   } catch (error) {

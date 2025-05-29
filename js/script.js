@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  
   formular?.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -32,14 +33,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const nachricht = document.getElementById("nachricht").value.trim();
 
     if (name === "" || email === "" || nachricht === "") {
-      meldung.style.color = "red";
+      meldung.className = "error";
       meldung.textContent = "Bitte fülle alle Pflichtfelder aus.";
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      meldung.style.color = "red";
+      meldung.className = "error";
       meldung.textContent = "Bitte gib eine gültige E-Mail-Adresse ein.";
       return;
     }
@@ -52,22 +53,22 @@ document.addEventListener("DOMContentLoaded", async function () {
         timestamp: serverTimestamp(),
       });
 
-      meldung.style.color = "green";
+      meldung.className = "success";
       meldung.textContent = "Vielen Dank für deine Nachricht!";
       formular.reset();
     } catch (error) {
       console.error("Fehler beim Speichern der Nachricht:", error);
-      meldung.style.color = "red";
+      meldung.className = "error";
       meldung.textContent = "Fehler beim Senden der Nachricht.";
     }
   });
 
-  
+ 
   const aboutOutput = document.getElementById("about-output");
   try {
     const docSnap = await getDoc(doc(db, "content", "about"));
     if (docSnap.exists()) {
-      aboutOutput.textContent = docSnap.data().text;
+      aboutOutput.innerHTML = docSnap.data().text;
     } else {
       aboutOutput.textContent = "Noch kein Text vorhanden.";
     }
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   
   const burger = document.getElementById("menu-toggle");
   const nav = document.getElementById("main-nav");
-  const navLinks = document.querySelectorAll('#main-nav a');
+  const navLinks = document.querySelectorAll("#main-nav a");
 
   burger?.addEventListener("click", () => {
     const isOpen = nav.classList.contains("active");
@@ -92,8 +93,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-  
-  navLinks.forEach(link => {
+  navLinks.forEach((link) => {
     link.addEventListener("click", () => {
       nav.classList.remove("active");
       burger.classList.remove("open");
