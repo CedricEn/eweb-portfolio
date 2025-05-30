@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mein Portfolio</title>
+
+    <!-- Verlinkung zur CSS-Datei -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Einbindung von Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
 </head>
@@ -14,11 +18,14 @@
         <h1>Willkommen</h1>
         <h2>Hey, mein Name ist Cédric und das ist meine Portfolio-Seite für EWEB</h2>
         <nav id="main-nav">
+            <!-- Burger-Menü für Mobile / Smartphones-->
             <button id="menu-toggle" class="burger" aria-label="Menü öffnen/schließen">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
             </button>
+
+            <!-- Navigation -->
             <ul>
                 <li><a href="#ueber-mich">Über Mich</a></li>
                 <li><a href="#projekte">Realisierte Projekte</a></li>
@@ -33,6 +40,7 @@
         <div class="about-content">
             <div class="text-block">
                 <h3>Über Mich</h3>
+                <!-- Inhalt wird dynamisch aus Java-Script geladen -->
                 <div id="about-output">Lade Text ...</div>
             </div>
             <img src="images/uebermich.svg" alt="Piktogramm" class="icon">
@@ -44,7 +52,7 @@
         <div class="about-content">
             <div class="text-block">
                 <h3>Realisierte Projekte</h3>
-                <p>Verlinkungen und Bilder.</p>
+                <p>Die Realisierten Projekte halten sich bis anhin in Grenzen. Im Moment habe ich neben dieser Webseite nur ein Projekt, welches ebenfalls im Rahmen der Schule erarbeitet wurde.</p>
             </div>
             <img src="images/projekte.svg" alt="Projekte Piktogramm" class="icon">
         </div>
@@ -56,9 +64,10 @@
             <div class="text-block">
                 <h3>Erfahrungen in Technologien</h3>
                 <ul>
-                    <li>HTML, CSS, JavaScript</li>
-                    <li>React, Strapi</li>
-                    <li>usw.</li>
+                    <li>MySQL (Datenbankicon)</li>
+                    <li>Strapi</li>
+                    <li>HTML, CSS & JS</li>
+                    <li>Angular Framework</li>
                 </ul>
             </div>
             <img src="images/technologie.svg" alt="Technologie Piktogramm" class="icon">
@@ -70,13 +79,13 @@
         <h3>Kontaktformular</h3>
         <form id="kontaktformular">
             <label for="name">Name *</label>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="name" required>
 
             <label for="email">E-Mail *</label>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="email" required>
 
             <label for="nachricht">Nachricht *</label>
-            <textarea id="nachricht" name="nachricht" rows="5" required></textarea><br>
+            <textarea id="nachricht" name="nachricht" rows="5" required></textarea>
 
             <button type="submit">Absenden</button>
             <p id="formular-meldung"></p>
@@ -87,6 +96,7 @@
         <p>© 2025 Cédric Engel</p>
     </footer>
 
+    <!-- Einbidung des Java-Scripts -->
     <script type="module" src="js/script.js"></script>
 </body>
 </html>

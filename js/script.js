@@ -1,3 +1,4 @@
+// Firebasekonfiguration
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import {
   getFirestore,
@@ -8,10 +9,13 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
+// DOM wird vollständig geladen
 document.addEventListener("DOMContentLoaded", async function () {
+  // Formularelemente werden selektiert
   const formular = document.getElementById("kontaktformular");
   const meldung = document.getElementById("formular-meldung");
 
+  // Firebasekonfiguration wird initialisiert
   const firebaseConfig = {
     apiKey: "AIzaSyAQrOILKOCE0Ye5NQ60ADF1H36m26nEdQ4",
     authDomain: "eweb-portfolio.firebaseapp.com",
@@ -28,16 +32,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   formular?.addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    // Eingabewerte vom Formular holen
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const nachricht = document.getElementById("nachricht").value.trim();
 
+    // Prüfung auf leere Felder (nicht erlaubt)
     if (name === "" || email === "" || nachricht === "") {
       meldung.className = "error";
       meldung.textContent = "Bitte fülle alle Pflichtfelder aus.";
       return;
     }
 
+    // Validierung der Emailadresse
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       meldung.className = "error";
@@ -45,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       return;
     }
 
+    // Nachricht wird an Firestone gesendet und dort gepeichert
     try {
       await addDoc(collection(db, "messages"), {
         name,
@@ -63,7 +71,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
- 
+
+  // "Über-Mich" Text aus der Datenbank laden und anzeigen
   const aboutOutput = document.getElementById("about-output");
   try {
     const docSnap = await getDoc(doc(db, "content", "about"));
@@ -77,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     aboutOutput.textContent = "Fehler beim Laden.";
   }
 
-  
+  // Burgermenü für Smartphones
   const burger = document.getElementById("menu-toggle");
   const nav = document.getElementById("main-nav");
   const navLinks = document.querySelectorAll("#main-nav a");

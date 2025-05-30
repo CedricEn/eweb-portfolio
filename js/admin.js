@@ -1,3 +1,4 @@
+// Firebaseimporte für Datenbank und Authentifizierung
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import {
   getAuth,
@@ -16,6 +17,7 @@ import {
   orderBy,
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
+// Konfiguration und Initialisierung von Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAQrOILKOCE0Ye5NQ60ADF1H36m26nEdQ4",
   authDomain: "eweb-portfolio.firebaseapp.com",
@@ -29,6 +31,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// DOM-Elemente referenzieren
 const loginForm = document.getElementById("login-form");
 const loginMessage = document.getElementById("login-message");
 const loginSection = document.getElementById("login-section");
@@ -39,9 +42,10 @@ const saveStatus = document.getElementById("save-status");
 const messagesContainer = document.getElementById("messages-container");
 const messagesChartCtx = document.getElementById("messagesChart").getContext("2d");
 
+// Referenz auf Chart-Objekt für Aktualisierung
 let messagesChart;
 
-
+// Quill Rich-Text-Editor initialisieren
 const aboutEditor = new Quill("#aboutEditor", {
   theme: "snow",
   placeholder: "Schreibe hier deinen ‚Über mich‘-Text...",
@@ -56,6 +60,7 @@ const aboutEditor = new Quill("#aboutEditor", {
   },
 });
 
+// Authentifizierung für das Login mit Firebase
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   loginMessage.textContent = "";
@@ -69,11 +74,13 @@ loginForm.addEventListener("submit", (e) => {
     });
 });
 
+// Login und Logout Status überwachen
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     loginSection.style.display = "none";
     adminSection.style.display = "block";
 
+    // "Über-Mich" Text laden
     try {
       const docSnap = await getDoc(doc(db, "content", "about"));
       if (docSnap.exists()) {
@@ -87,8 +94,10 @@ onAuthStateChanged(auth, async (user) => {
       aboutEditor.root.innerHTML = "";
     }
 
+    
     await loadMessagesAndStats();
   } else {
+    // Nach Logout Admin-Inhalte zurücksetzen
     loginSection.style.display = "block";
     adminSection.style.display = "none";
     loginMessage.textContent = "";
@@ -105,6 +114,7 @@ logoutButton.addEventListener("click", () => {
   signOut(auth);
 });
 
+// "Über-Mich" Inhalt speichern
 saveAboutBtn.addEventListener("click", async () => {
   
   const htmlContent = aboutEditor.root.innerHTML.trim();
@@ -119,6 +129,7 @@ saveAboutBtn.addEventListener("click", async () => {
   }
 });
 
+// Kontaktanfragen und Statisktidaten laden
 async function loadMessagesAndStats() {
   messagesContainer.innerHTML = "<p>Lade Kontaktanfragen...</p>";
   try {
@@ -155,6 +166,7 @@ async function loadMessagesAndStats() {
   }
 }
 
+// Nachrichten anzeigen, "Mehr Anzeigen" Funktion laden
 function renderMessages(messages) {
   messagesContainer.innerHTML = "";
 
@@ -186,6 +198,7 @@ function renderMessages(messages) {
     container.appendChild(div);
   }
 
+  // Button zum Ein und Ausblenden der weiteren Nachrichten
   if (messages.length > initialCount) {
     const toggleBtn = document.createElement("button");
     toggleBtn.textContent = "Weitere anzeigen";
@@ -202,6 +215,7 @@ function renderMessages(messages) {
   }
 }
 
+// Charts.js Grafik initialisieren oder aktualisieren
 function updateChart(labels, data) {
   if (messagesChart) {
     messagesChart.data.labels = labels;

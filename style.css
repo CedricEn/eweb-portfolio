@@ -1,3 +1,5 @@
+/* Allgemeine Einstellungen für die ganze Seite */
+
 body {
   font-family: 'Playfair Display', serif;
   font-weight: 400;
@@ -9,6 +11,7 @@ body {
   line-height: 1.5;
 }
 
+/* Labelfarbe bei Formularbeschriftung */
 label {
     color: rgb(2, 98, 128);
 }
@@ -42,6 +45,7 @@ h3 {
   margin-bottom: 0.75rem;
 }
 
+/* Navigationselemente */
 nav ul {
   list-style: none;
   padding: 0;
@@ -60,12 +64,14 @@ nav ul li a {
   transition: background-color 0.3s ease;
 }
 
+/* Hoverzustand und Fokus bei der Navigation */
 nav ul li a:hover,
 nav ul li a:focus {
   background-color: #555;
   color: #fff;
 }
 
+/* Allgemeine Einstellungen für den Section-Bereich */
 section {
   width: 90%;
   max-width: 900px;
@@ -77,6 +83,7 @@ section {
   box-sizing: border-box;
 }
 
+/* Für Abschnitte mit Bild und Text */
 .about-content {
   display: flex;
   justify-content: space-between;
@@ -94,6 +101,7 @@ section {
   height: auto;
 }
 
+/* Kontaktformularstyling */
 form {
   width: 100%;
   max-width: 500px;
@@ -107,6 +115,14 @@ form {
   box-sizing: border-box;
   box-shadow: 0 0.1875rem 0.375rem rgba(0,0,0,0.1); 
 }
+
+form#kontaktformular label,
+form#kontaktformular input,
+form#kontaktformular textarea {
+  display: block;
+  margin-bottom: 1rem;
+}
+
 
 input, textarea {
   width: 100%;
@@ -153,9 +169,10 @@ footer {
   background-color: #222;
   color: #ccc;
   font-size: 0.875rem;
-  margin-top: 3.75rem; /
+  margin-top: 3.75rem; 
 }
 
+/* Einstellungen für Burger-Menü bei Smartphones */
 .burger {
   display: none;
   flex-direction: column;
@@ -187,6 +204,7 @@ footer {
   transform: rotate(45deg) translate(-0.3125rem, -0.375rem);
 }
 
+/* Responsiv Einstellungen für kleinere Bildschirme */
 @media (max-width: 768px) {
   nav ul {
     max-height: 0;
@@ -199,18 +217,15 @@ footer {
     width: 100%;
   }
 
+  .about-content,
   #ueber-mich .about-content {
     flex-direction: column;
     text-align: center;
   }
 
-  #ueber-mich .icon {
-    margin-top: 1rem;
-  }
-
   #main-nav.active ul {
     max-height: 30rem; 
-    padding: 1.25rem 0; /
+    padding: 1.25rem 0; 
   }
 
   nav ul li {
@@ -230,11 +245,6 @@ footer {
     width: 95%;
     padding: 1rem;
     margin: 2rem auto;
-  }
-
-  .about-content {
-    flex-direction: column;
-    text-align: center;
   }
 
   .icon {
