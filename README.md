@@ -19,3 +19,5 @@ Auf den Adminbereich kommt man via Login. In diesem hat der Admin folgende Infor
 - Grafik über die Anzahl der gesendete Kontaktformulare pro Tag
 
 Für den Adminbereich braucht es ein Login. Dieses wurde im Zusammenhang mit der Abgabe des Projekts dem Lehrer mitgeschickt, damit der Zugriff auf den Bereich vorhanden ist.
+
+Hinweis: zur Erstellung der Webseite wurde die Arbeit von ChatGPT unterstützt. 
